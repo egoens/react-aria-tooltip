@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "rm -rf dist",
     "deployjs": "babel src/react-aria-tooltip.jsx -o dist/react-aria-tooltip.js",
     "deploycss": "node-sass --output-style compressed src/react-aria-tooltip.scss dist/react-tooltip.min.css",
-    "predeploy": "rm -rf dist",
-    "deploy": "npm run predeploy & mkdir dist & npm run deployjs & npm run deploycss"
+    "deploy": "npm run predeploy & mkdir dist & npm run deploycss & npm run deployjs"
   },
   "repository": {
     "type": "git",
