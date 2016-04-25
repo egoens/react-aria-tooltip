@@ -1,5 +1,5 @@
 # react-aria-tooltip
-Simple ReactJS ARIA tooltip.
+Simple ReactJS component that adds the appropriate role, identification structure, and aria-hidden attribute for a tooltip.
 
 ## Installation
 `npm install react-aria-tooltip`
@@ -24,14 +24,14 @@ You will also need to include the tooltip css path into your application in some
 ```
 
 ## Options
-1. `message` the string that will display in the tooltip
+1. `message` string that will display in the tooltip
 2. `eventType` this can either be 'click' or 'hover'
 3. `direction` the placement of the tooltip. Can be one of four options 'top', 'bottom', 'right', 'left'
 4. `duration` this is only applicable to the click `eventType`. This value defines the amount of time the tooltip is present after the user clicks the target element
 
 ## Examples
 ```
-<ReactARIAToolTip message="Tooltip text" eventType="hover">
+<ReactARIAToolTip message="Tooltip text" eventType="hover" direction="bottom">
     <span>Some text</span>
 </ReactARIAToolTip>
 ```
