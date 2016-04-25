@@ -1,0 +1,12 @@
+# system files
+*.log
+.DS_Store*
+
+# push to github
+!.babelrc
+!.gitignore
+!.npmignore
+
+# files
+node_modules/
+example/dist
