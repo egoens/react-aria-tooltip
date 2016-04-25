@@ -19,6 +19,9 @@ return (
 You will also need to include the tooltip css path into your application in some form.
 
 ### CSS @import
+Import the package css file relative to your `node_modules` directory.
+
+Example
 ```
 @import "../../../node_modules/react-aria-tooltip/dist/react-tooltip.min.css";
 ```
