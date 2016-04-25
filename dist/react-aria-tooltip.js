@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _react = require('react');
 
@@ -24,7 +24,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var tooltipIdCounter = 0;
 
-var ReactARIAToolTip = function (_React$Component) {
+var ReactARIAToolTip = (function (_React$Component) {
     _inherits(ReactARIAToolTip, _React$Component);
 
     function ReactARIAToolTip(props, context) {
@@ -46,6 +46,12 @@ var ReactARIAToolTip = function (_React$Component) {
         value: function componentWillMount() {
             var id = this.props.id || this.uniqueID("tooltip-");
             this.setState({ id: id });
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.timer && clearTimeout(this.timer);
+            this.timer = false;
         }
     }, {
         key: 'startTimer',
@@ -72,6 +78,11 @@ var ReactARIAToolTip = function (_React$Component) {
         key: 'handleMouseLeave',
         value: function handleMouseLeave() {
             this.setState({ active: false });
+        }
+    }, {
+        key: 'handleFocus',
+        value: function handleFocus() {
+            this.handleClick();
         }
 
         // create unique id so multiple tooltips can be used in the same view
@@ -126,7 +137,8 @@ var ReactARIAToolTip = function (_React$Component) {
                         onMouseLeave: this.handleMouseLeave.bind(this),
                         className: containerClasses,
                         role: 'tooltip',
-                        id: tooltipID },
+                        id: tooltipID,
+                        onFocus: this.handleFocus.bind(this) },
                     this.renderToolTipWrapper(tooltipID),
                     this.addDescribedBy(tooltipID)
                 );
@@ -144,7 +156,7 @@ var ReactARIAToolTip = function (_React$Component) {
     }]);
 
     return ReactARIAToolTip;
-}(_react2.default.Component);
+})(_react2.default.Component);
 
 ReactARIAToolTip.displayName = 'ReactARIAToolTip';
 ReactARIAToolTip.propTypes = {

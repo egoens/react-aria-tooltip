@@ -37,6 +37,11 @@ export default class ReactARIAToolTip extends React.Component {
         this.setState({id: id})
     }
 
+    componentWillUnmount () {
+        this.timer && clearTimeout(this.timer);
+        this.timer = false;
+    }
+
     startTimer() {
         this.timer = setTimeout(
             () => this.setState({active: false}), this.props.duration
@@ -55,6 +60,10 @@ export default class ReactARIAToolTip extends React.Component {
 
     handleMouseLeave() {
         this.setState({active: false})
+    }
+
+    handleFocus() {
+        this.handleClick()
     }
 
     // create unique id so multiple tooltips can be used in the same view
@@ -98,7 +107,8 @@ export default class ReactARIAToolTip extends React.Component {
                      onMouseLeave={::this.handleMouseLeave}
                      className={containerClasses}
                      role="tooltip"
-                     id={tooltipID}>
+                     id={tooltipID}
+                     onFocus={::this.handleFocus}>
 
                      {this.renderToolTipWrapper(tooltipID)}
                      {this.addDescribedBy(tooltipID)}
