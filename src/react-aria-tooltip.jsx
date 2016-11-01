@@ -1,5 +1,16 @@
 import React from 'react'
-import classNames from 'classnames'
+import ReactARIAToolTipContent from './react-aria-tooltip-content'
+import styled from 'styled-components'
+
+const TooltipWrapper = styled.div`
+    position: relative;
+
+    &.active {
+        .ra-tooltip {
+            display: block;
+        }
+    }
+`
 
 let tooltipIdCounter = 0;
 
@@ -12,13 +23,15 @@ export default class ReactARIAToolTip extends React.Component {
         duration: React.PropTypes.number,
         children: React.PropTypes.node,
         eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
-        id: React.PropTypes.string
+        id: React.PropTypes.string,
+        bgcolor: React.PropTypes.string
     }
 
     static defaultProps = {
         direction: "top",
         duration: 2000,
-        eventType: "click"
+        eventType: "click",
+        bgcolor: "#000"
     }
 
     constructor(props, context) {
@@ -33,7 +46,7 @@ export default class ReactARIAToolTip extends React.Component {
     }
 
     componentWillMount() {
-        const id = this.props.id || this.uniqueID("tooltip-")
+        const id = this.props.id || this.uniqueID("ra-tooltip-")
         this.setState({id: id})
     }
 
@@ -43,14 +56,15 @@ export default class ReactARIAToolTip extends React.Component {
     }
 
     startTimer() {
+        const { duration } = this.props
         this.timer = setTimeout(
-            () => this.setState({active: false}), this.props.duration
+            () => this.setState({active: false}), duration
         )
     }
 
     handleClick() {
-        this.setState({active: true})
         clearTimeout(this.timer)
+        this.setState({active: true})
         this.startTimer()
     }
 
@@ -81,49 +95,38 @@ export default class ReactARIAToolTip extends React.Component {
         })
     }
 
-    renderToolTipWrapper(tooltipID) {
-        const wrapperClasses = classNames(
-            "react-aria-tooltip-wrapper", this.props.direction
-        )
-
-        return (
-            <div className={wrapperClasses} aria-hidden={this.state.active ? false : true}>
-                <div className="react-aria-tooltip-message">
-                    <p>{this.props.message}</p>
-                </div>
-            </div>
-        )
-    }
-
     render() {
-        const containerClasses = classNames(
-            "react-aria-tooltip", { "active": this.state.active }
-        )
+        const { message, bgcolor, direction } = this.props
+        const { active } = this.state
+        let containerClass = "ra-tooltip-wrapper"
+        containerClass += (active) ? " active" : ""
         const tooltipID = this.state.id
 
         if (this.props.eventType == 'hover') {
             return (
-                <div onMouseOver={::this.handleMouseOver}
-                     onMouseLeave={::this.handleMouseLeave}
-                     className={containerClasses}
+                <TooltipWrapper
+                     onMouseOver={this.handleMouseOver.bind(this)}
+                     onMouseLeave={this.handleMouseLeave.bind(this)}
                      role="tooltip"
                      id={tooltipID}
-                     onFocus={::this.handleFocus}>
-
-                     {this.renderToolTipWrapper(tooltipID)}
+                     onFocus={this.handleFocus.bind(this)}
+                     className={containerClass}
+                >
+                    <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
                      {this.addDescribedBy(tooltipID)}
-                </div>
+                </TooltipWrapper>
             )
         }
 
         return (
-            <div onClick={::this.handleClick}
-                 className={containerClasses}
-                 role="tooltip">
-
-                 {this.renderToolTipWrapper(tooltipID)}
+            <TooltipWrapper
+                 onClick={this.handleClick.bind(this)}
+                 role="tooltip"
+                 className={containerClass}
+            >
+                 <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
                  {this.addDescribedBy(tooltipID)}
-            </div>
+            </TooltipWrapper>
         )
 
     }
