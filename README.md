@@ -10,7 +10,7 @@ Simple ReactJS component that adds the appropriate role, identification structur
 import ReactARIAToolTip from 'react-aria-tooltip'
 
 return (
-    <ReactARIAToolTip message="You custom message">
+    <ReactARIAToolTip message="Your custom message">
         <SomeTagOrComponent>Some content</SomeTagOrComponent>
     </ReactARIAToolTip>
 )
@@ -51,4 +51,4 @@ All styles are handled inline but each element contains a CSS class so you can o
 </div>
 ```
 
-## MIT Licenced
+## MIT Licensed
