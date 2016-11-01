@@ -1,5 +1,114 @@
 import React from 'react'
-import classNames from 'classnames'
+import styled from 'styled-components'
+
+const arrow_size = '5'
+const tooltip_color = 'black'
+
+const TooltipWrapper = styled.div`
+    position: relative;
+
+    &.active {
+        .ra-tooltip {
+            display: block;
+        }
+    }
+`
+
+const Tooltip = styled.div`
+    position: absolute;
+    background: ${tooltip_color};
+    transition: all .25s;
+    display: none;
+
+    p {
+        padding: .5rem 1rem;
+        margin: 0;
+        white-space: nowrap;
+        color: white;
+    }
+
+    // directions
+    &.top {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%,-120%);
+
+        .ra-tooltip-message {
+            // down arrow
+            &:after {
+                top: 100%;
+            	left: 50%;
+            	border-top-color: ${tooltip_color};
+            }
+        }
+    }
+
+    &.bottom {
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,120%);
+
+        .ra-tooltip-message {
+            // up arrow
+            &:after {
+                top: -${arrow_size * 2}px;
+            	left: 50%;
+            	border-bottom-color: ${tooltip_color};
+            }
+        }
+    }
+
+    &.left {
+        top: 50%;
+        left: -${arrow_size}px;
+        transform: translate(-100%,-50%);
+
+        .ra-tooltip-message {
+            &:after {
+                // right arrow
+                top: 50%;
+            	left: 100%;
+                margin-left: 0;
+                margin-top: -${arrow_size}px;
+            	border-left-color: ${tooltip_color};
+            }
+        }
+    }
+
+    &.right {
+        top: 50%;
+        right: -${arrow_size}px;
+        transform: translate(100%,-50%);
+
+        .ra-tooltip-message  {
+            &:after {
+                // left arrow
+                top: 50%;
+            	right: 100%;
+                margin-left: 0;
+                margin-top: -${arrow_size}px;
+            	border-right-color: ${tooltip_color};
+            }
+        }
+    }
+`
+
+const TooltipMessage = styled.div`
+    position: relative;
+
+    // default arrow indicator styles
+    &:after {
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-width: ${arrow_size}px;
+        margin-left: -${arrow_size}px;
+    }
+}
+`
 
 let tooltipIdCounter = 0;
 
@@ -33,7 +142,7 @@ export default class ReactARIAToolTip extends React.Component {
     }
 
     componentWillMount() {
-        const id = this.props.id || this.uniqueID("tooltip-")
+        const id = this.props.id || this.uniqueID("ra-tooltip-")
         this.setState({id: id})
     }
 
@@ -43,14 +152,15 @@ export default class ReactARIAToolTip extends React.Component {
     }
 
     startTimer() {
+        const { duration } = this.props
         this.timer = setTimeout(
-            () => this.setState({active: false}), this.props.duration
+            () => this.setState({active: false}), duration
         )
     }
 
     handleClick() {
-        this.setState({active: true})
         clearTimeout(this.timer)
+        this.setState({active: true})
         this.startTimer()
     }
 
@@ -81,49 +191,47 @@ export default class ReactARIAToolTip extends React.Component {
         })
     }
 
-    renderToolTipWrapper(tooltipID) {
-        const wrapperClasses = classNames(
-            "react-aria-tooltip-wrapper", this.props.direction
-        )
-
+    renderToolTip(tooltipID) {
+        const tooltipClasses = `${this.props.direction} ra-tooltip`
         return (
-            <div className={wrapperClasses} aria-hidden={this.state.active ? false : true}>
-                <div className="react-aria-tooltip-message">
+            <Tooltip className={tooltipClasses} aria-hidden={this.state.active ? false : true}>
+                <TooltipMessage className="ra-tooltip-message">
                     <p>{this.props.message}</p>
-                </div>
-            </div>
+                </TooltipMessage>
+            </Tooltip>
         )
     }
 
     render() {
-        const containerClasses = classNames(
-            "react-aria-tooltip", { "active": this.state.active }
-        )
+        let containerClass = "ra-tooltip-wrapper"
+        containerClass += (this.state.active) ? " active" : ""
         const tooltipID = this.state.id
 
         if (this.props.eventType == 'hover') {
             return (
-                <div onMouseOver={::this.handleMouseOver}
-                     onMouseLeave={::this.handleMouseLeave}
-                     className={containerClasses}
+                <TooltipWrapper
+                     onMouseOver={this.handleMouseOver.bind(this)}
+                     onMouseLeave={this.handleMouseLeave.bind(this)}
                      role="tooltip"
                      id={tooltipID}
-                     onFocus={::this.handleFocus}>
-
-                     {this.renderToolTipWrapper(tooltipID)}
+                     onFocus={this.handleFocus.bind(this)}
+                     className={containerClass}
+                >
+                     {this.renderToolTip(tooltipID)}
                      {this.addDescribedBy(tooltipID)}
-                </div>
+                </TooltipWrapper>
             )
         }
 
         return (
-            <div onClick={::this.handleClick}
-                 className={containerClasses}
-                 role="tooltip">
-
-                 {this.renderToolTipWrapper(tooltipID)}
+            <TooltipWrapper
+                 onClick={this.handleClick.bind(this)}
+                 role="tooltip"
+                 className={containerClass}
+            >
+                 {this.renderToolTip(tooltipID)}
                  {this.addDescribedBy(tooltipID)}
-            </div>
+            </TooltipWrapper>
         )
 
     }

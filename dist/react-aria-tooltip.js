@@ -4,15 +4,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\n    position: relative;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n'], ['\n    position: relative;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    position: absolute;\n    background: ', ';\n    transition: all .25s;\n    display: none;\n\n    p {\n        padding: .5rem 1rem;\n        margin: 0;\n        white-space: nowrap;\n        color: white;\n    }\n\n    // directions\n    &.top {\n        top: 0;\n        left: 50%;\n        transform: translate(-50%,-120%);\n\n        .ra-tooltip-message {\n            // down arrow\n            &:after {\n                top: 100%;\n            \tleft: 50%;\n            \tborder-top-color: ', ';\n            }\n        }\n    }\n\n    &.bottom {\n        bottom: 0;\n        left: 50%;\n        transform: translate(-50%,120%);\n\n        .ra-tooltip-message {\n            // up arrow\n            &:after {\n                top: -', 'px;\n            \tleft: 50%;\n            \tborder-bottom-color: ', ';\n            }\n        }\n    }\n\n    &.left {\n        top: 50%;\n        left: -', 'px;\n        transform: translate(-100%,-50%);\n\n        .ra-tooltip-message {\n            &:after {\n                // right arrow\n                top: 50%;\n            \tleft: 100%;\n                margin-left: 0;\n                margin-top: -', 'px;\n            \tborder-left-color: ', ';\n            }\n        }\n    }\n\n    &.right {\n        top: 50%;\n        right: -', 'px;\n        transform: translate(100%,-50%);\n\n        .ra-tooltip-message  {\n            &:after {\n                // left arrow\n                top: 50%;\n            \tright: 100%;\n                margin-left: 0;\n                margin-top: -', 'px;\n            \tborder-right-color: ', ';\n            }\n        }\n    }\n'], ['\n    position: absolute;\n    background: ', ';\n    transition: all .25s;\n    display: none;\n\n    p {\n        padding: .5rem 1rem;\n        margin: 0;\n        white-space: nowrap;\n        color: white;\n    }\n\n    // directions\n    &.top {\n        top: 0;\n        left: 50%;\n        transform: translate(-50%,-120%);\n\n        .ra-tooltip-message {\n            // down arrow\n            &:after {\n                top: 100%;\n            \tleft: 50%;\n            \tborder-top-color: ', ';\n            }\n        }\n    }\n\n    &.bottom {\n        bottom: 0;\n        left: 50%;\n        transform: translate(-50%,120%);\n\n        .ra-tooltip-message {\n            // up arrow\n            &:after {\n                top: -', 'px;\n            \tleft: 50%;\n            \tborder-bottom-color: ', ';\n            }\n        }\n    }\n\n    &.left {\n        top: 50%;\n        left: -', 'px;\n        transform: translate(-100%,-50%);\n\n        .ra-tooltip-message {\n            &:after {\n                // right arrow\n                top: 50%;\n            \tleft: 100%;\n                margin-left: 0;\n                margin-top: -', 'px;\n            \tborder-left-color: ', ';\n            }\n        }\n    }\n\n    &.right {\n        top: 50%;\n        right: -', 'px;\n        transform: translate(100%,-50%);\n\n        .ra-tooltip-message  {\n            &:after {\n                // left arrow\n                top: 50%;\n            \tright: 100%;\n                margin-left: 0;\n                margin-top: -', 'px;\n            \tborder-right-color: ', ';\n            }\n        }\n    }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    position: relative;\n\n    // default arrow indicator styles\n    &:after {\n        border: solid transparent;\n        content: " ";\n        height: 0;\n        width: 0;\n        position: absolute;\n        pointer-events: none;\n        border-width: ', 'px;\n        margin-left: -', 'px;\n    }\n}\n'], ['\n    position: relative;\n\n    // default arrow indicator styles\n    &:after {\n        border: solid transparent;\n        content: " ";\n        height: 0;\n        width: 0;\n        position: absolute;\n        pointer-events: none;\n        border-width: ', 'px;\n        margin-left: -', 'px;\n    }\n}\n']);
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = require('classnames');
+var _styledComponents = require('styled-components');
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,9 +26,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var arrow_size = '5';
+var tooltip_color = 'black';
+
+var TooltipWrapper = _styledComponents2.default.div(_templateObject);
+
+var Tooltip = _styledComponents2.default.div(_templateObject2, tooltip_color, tooltip_color, arrow_size * 2, tooltip_color, arrow_size, arrow_size, tooltip_color, arrow_size, arrow_size, tooltip_color);
+
+var TooltipMessage = _styledComponents2.default.div(_templateObject3, arrow_size, arrow_size);
+
 var tooltipIdCounter = 0;
 
-var ReactARIAToolTip = (function (_React$Component) {
+var ReactARIAToolTip = function (_React$Component) {
     _inherits(ReactARIAToolTip, _React$Component);
 
     function ReactARIAToolTip(props, context) {
@@ -44,7 +59,7 @@ var ReactARIAToolTip = (function (_React$Component) {
     _createClass(ReactARIAToolTip, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-            var id = this.props.id || this.uniqueID("tooltip-");
+            var id = this.props.id || this.uniqueID("ra-tooltip-");
             this.setState({ id: id });
         }
     }, {
@@ -58,15 +73,17 @@ var ReactARIAToolTip = (function (_React$Component) {
         value: function startTimer() {
             var _this2 = this;
 
+            var duration = this.props.duration;
+
             this.timer = setTimeout(function () {
                 return _this2.setState({ active: false });
-            }, this.props.duration);
+            }, duration);
         }
     }, {
         key: 'handleClick',
         value: function handleClick() {
-            this.setState({ active: true });
             clearTimeout(this.timer);
+            this.setState({ active: true });
             this.startTimer();
         }
     }, {
@@ -106,16 +123,15 @@ var ReactARIAToolTip = (function (_React$Component) {
             });
         }
     }, {
-        key: 'renderToolTipWrapper',
-        value: function renderToolTipWrapper(tooltipID) {
-            var wrapperClasses = (0, _classnames2.default)("react-aria-tooltip-wrapper", this.props.direction);
-
+        key: 'renderToolTip',
+        value: function renderToolTip(tooltipID) {
+            var tooltipClasses = this.props.direction + ' ra-tooltip';
             return _react2.default.createElement(
-                'div',
-                { className: wrapperClasses, 'aria-hidden': this.state.active ? false : true },
+                Tooltip,
+                { className: tooltipClasses, 'aria-hidden': this.state.active ? false : true },
                 _react2.default.createElement(
-                    'div',
-                    { className: 'react-aria-tooltip-message' },
+                    TooltipMessage,
+                    { className: 'ra-tooltip-message' },
                     _react2.default.createElement(
                         'p',
                         null,
@@ -127,36 +143,41 @@ var ReactARIAToolTip = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var containerClasses = (0, _classnames2.default)("react-aria-tooltip", { "active": this.state.active });
+            var containerClass = "ra-tooltip-wrapper";
+            containerClass += this.state.active ? " active" : "";
             var tooltipID = this.state.id;
 
             if (this.props.eventType == 'hover') {
                 return _react2.default.createElement(
-                    'div',
-                    { onMouseOver: this.handleMouseOver.bind(this),
+                    TooltipWrapper,
+                    {
+                        onMouseOver: this.handleMouseOver.bind(this),
                         onMouseLeave: this.handleMouseLeave.bind(this),
-                        className: containerClasses,
                         role: 'tooltip',
                         id: tooltipID,
-                        onFocus: this.handleFocus.bind(this) },
-                    this.renderToolTipWrapper(tooltipID),
+                        onFocus: this.handleFocus.bind(this),
+                        className: containerClass
+                    },
+                    this.renderToolTip(tooltipID),
                     this.addDescribedBy(tooltipID)
                 );
             }
 
             return _react2.default.createElement(
-                'div',
-                { onClick: this.handleClick.bind(this),
-                    className: containerClasses,
-                    role: 'tooltip' },
-                this.renderToolTipWrapper(tooltipID),
+                TooltipWrapper,
+                {
+                    onClick: this.handleClick.bind(this),
+                    role: 'tooltip',
+                    className: containerClass
+                },
+                this.renderToolTip(tooltipID),
                 this.addDescribedBy(tooltipID)
             );
         }
     }]);
 
     return ReactARIAToolTip;
-})(_react2.default.Component);
+}(_react2.default.Component);
 
 ReactARIAToolTip.displayName = 'ReactARIAToolTip';
 ReactARIAToolTip.propTypes = {
