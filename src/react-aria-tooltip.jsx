@@ -1,8 +1,6 @@
 import React from 'react'
+import ReactARIAToolTipContent from './react-aria-tooltip-content'
 import styled from 'styled-components'
-
-const arrow_size = '5'
-const tooltip_color = 'black'
 
 const TooltipWrapper = styled.div`
     position: relative;
@@ -12,102 +10,6 @@ const TooltipWrapper = styled.div`
             display: block;
         }
     }
-`
-
-const Tooltip = styled.div`
-    position: absolute;
-    background: ${tooltip_color};
-    transition: all .25s;
-    display: none;
-
-    p {
-        padding: .5rem 1rem;
-        margin: 0;
-        white-space: nowrap;
-        color: white;
-    }
-
-    // directions
-    &.top {
-        top: 0;
-        left: 50%;
-        transform: translate(-50%,-120%);
-
-        .ra-tooltip-message {
-            // down arrow
-            &:after {
-                top: 100%;
-            	left: 50%;
-            	border-top-color: ${tooltip_color};
-            }
-        }
-    }
-
-    &.bottom {
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%,120%);
-
-        .ra-tooltip-message {
-            // up arrow
-            &:after {
-                top: -${arrow_size * 2}px;
-            	left: 50%;
-            	border-bottom-color: ${tooltip_color};
-            }
-        }
-    }
-
-    &.left {
-        top: 50%;
-        left: -${arrow_size}px;
-        transform: translate(-100%,-50%);
-
-        .ra-tooltip-message {
-            &:after {
-                // right arrow
-                top: 50%;
-            	left: 100%;
-                margin-left: 0;
-                margin-top: -${arrow_size}px;
-            	border-left-color: ${tooltip_color};
-            }
-        }
-    }
-
-    &.right {
-        top: 50%;
-        right: -${arrow_size}px;
-        transform: translate(100%,-50%);
-
-        .ra-tooltip-message  {
-            &:after {
-                // left arrow
-                top: 50%;
-            	right: 100%;
-                margin-left: 0;
-                margin-top: -${arrow_size}px;
-            	border-right-color: ${tooltip_color};
-            }
-        }
-    }
-`
-
-const TooltipMessage = styled.div`
-    position: relative;
-
-    // default arrow indicator styles
-    &:after {
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-width: ${arrow_size}px;
-        margin-left: -${arrow_size}px;
-    }
-}
 `
 
 let tooltipIdCounter = 0;
@@ -121,13 +23,15 @@ export default class ReactARIAToolTip extends React.Component {
         duration: React.PropTypes.number,
         children: React.PropTypes.node,
         eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
-        id: React.PropTypes.string
+        id: React.PropTypes.string,
+        bgcolor: React.PropTypes.string
     }
 
     static defaultProps = {
         direction: "top",
         duration: 2000,
-        eventType: "click"
+        eventType: "click",
+        bgcolor: "#000"
     }
 
     constructor(props, context) {
@@ -191,20 +95,11 @@ export default class ReactARIAToolTip extends React.Component {
         })
     }
 
-    renderToolTip(tooltipID) {
-        const tooltipClasses = `${this.props.direction} ra-tooltip`
-        return (
-            <Tooltip className={tooltipClasses} aria-hidden={this.state.active ? false : true}>
-                <TooltipMessage className="ra-tooltip-message">
-                    <p>{this.props.message}</p>
-                </TooltipMessage>
-            </Tooltip>
-        )
-    }
-
     render() {
+        const { message, bgcolor, direction } = this.props
+        const { active } = this.state
         let containerClass = "ra-tooltip-wrapper"
-        containerClass += (this.state.active) ? " active" : ""
+        containerClass += (active) ? " active" : ""
         const tooltipID = this.state.id
 
         if (this.props.eventType == 'hover') {
@@ -217,7 +112,7 @@ export default class ReactARIAToolTip extends React.Component {
                      onFocus={this.handleFocus.bind(this)}
                      className={containerClass}
                 >
-                     {this.renderToolTip(tooltipID)}
+                    <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
                      {this.addDescribedBy(tooltipID)}
                 </TooltipWrapper>
             )
@@ -229,7 +124,7 @@ export default class ReactARIAToolTip extends React.Component {
                  role="tooltip"
                  className={containerClass}
             >
-                 {this.renderToolTip(tooltipID)}
+                 <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
                  {this.addDescribedBy(tooltipID)}
             </TooltipWrapper>
         )
