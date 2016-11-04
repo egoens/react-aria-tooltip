@@ -83,7 +83,11 @@ class ReactARIAToolTip extends React.Component {
                      onFocus={this.handleFocus.bind(this)}
                      className={containerClass}
                 >
-                    <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
+                    <ToolTipContent
+                        message={message}
+                        bgcolor={bgcolor}
+                        direction={direction}
+                        active={active} />
                      {this.addDescribedBy(tooltipID)}
                 </div>
             )
