@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 const TooltipWrapper = styled.div`
     position: relative;
+    display: inline-block;
+    margin: auto;
+    width: auto;
 
     &.active {
         .ra-tooltip {
@@ -20,7 +23,10 @@ export default class ReactARIAToolTip extends React.Component {
     static propTypes = {
         message: React.PropTypes.string.isRequired,
         direction: React.PropTypes.string,
-        duration: React.PropTypes.number,
+        duration: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ]),
         children: React.PropTypes.node,
         eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
         id: React.PropTypes.string,
@@ -124,7 +130,11 @@ export default class ReactARIAToolTip extends React.Component {
                  role="tooltip"
                  className={containerClass}
             >
-                 <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
+                 <ReactARIAToolTipContent
+                     message={message}
+                     bgcolor={bgcolor}
+                     direction={direction}
+                     active={active} />
                  {this.addDescribedBy(tooltipID)}
             </TooltipWrapper>
         )
