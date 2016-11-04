@@ -22,6 +22,7 @@ return (
 1. `direction` the placement of the tooltip. Can be one of four options 'top', 'bottom', 'right', 'left'  (default 'top')
 1. `duration` this is only applicable to the click `eventType`. This value defines the amount of time the tooltip is present after the user clicks the target element  (default 2000)
 1. `bgcolor` controls the background color of the tooltip.  (default '#000')
+1. `arrowSize` number indicating the size of tooltip arrow (defined in px). This can be '0' if you prefer for an arrow to not show (default '10')
 
 **Note:** Please use a color contrast checker such as http://webaim.org/resources/contrastchecker/ to make sure the font color, defaulted to white/#fff, works with your bgcolor value)
 
@@ -33,7 +34,7 @@ return (
 ```
 
 ```
-<ReactARIAToolTip message="Something fancy" eventType="click" duration="500" bgcolor="red">
+<ReactARIAToolTip message="Something fancy" eventType="click" duration="500" bgcolor="red" arrowSize="0">
     <img src="../path/to/some/image" alt="" title="" />
 </ReactARIAToolTip>
 ```
