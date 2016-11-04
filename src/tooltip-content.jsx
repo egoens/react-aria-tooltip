@@ -1,52 +1,32 @@
 import React from 'react'
+import TooltipMessage from './tooltip-message'
 import styled from 'styled-components'
 
 const arrowSize = 5
 
-const TooltipMessage = styled.div`
-    position: relative;
-
-    // default arrow indicator styles
-    &:after {
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-        border-width: ${arrowSize}px;
-        margin-left: -${arrowSize}px;
-    }
-}
-`
-
-const ReactARIAToolTipContent = ({ className, direction, message, active, bgcolor }) => {
+const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
     const tooltipClasses = `${direction} ra-tooltip ${className}`
 
     return (
         <div className={tooltipClasses} aria-hidden={active ? false : true}>
-            <TooltipMessage className="ra-tooltip-message">
-                <p>{message}</p>
-            </TooltipMessage>
+            <TooltipMessage message={message} arrowSize={arrowSize} />
         </div>
     )
 }
-ReactARIAToolTipContent.displayName = 'ReactARIAToolTipContent'
+ToolTipContent.displayName = 'ToolTipContent'
 
-ReactARIAToolTipContent.propTypes = {
+ToolTipContent.propTypes = {
     message: React.PropTypes.string.isRequired,
     direction: React.PropTypes.string.isRequired,
     active: React.PropTypes.bool.isRequired,
     bgcolor: React.PropTypes.string
 }
 
-export default styled(ReactARIAToolTipContent)`
-    & {
-        position: absolute;
-        background: ${(props) => props.bgcolor};
-        transition: all .25s;
-        display: none;
-    }
+export default styled(ToolTipContent)`
+    position: absolute;
+    background: ${props => props.bgcolor};
+    transition: all .25s;
+    display: none;
 
     p {
         padding: .5rem 1rem;
@@ -55,14 +35,12 @@ export default styled(ReactARIAToolTipContent)`
         color: white;
     }
 
-    // directions
     &.top {
         top: 0;
         left: 50%;
         transform: translate(-50%,-120%);
 
         .ra-tooltip-message {
-            // down arrow
             &:after {
                 top: 100%;
                 left: 50%;
@@ -77,7 +55,6 @@ export default styled(ReactARIAToolTipContent)`
         transform: translate(-50%,120%);
 
         .ra-tooltip-message {
-            // up arrow
             &:after {
                 top: -${arrowSize * 2}px;
                 left: 50%;
@@ -93,7 +70,6 @@ export default styled(ReactARIAToolTipContent)`
 
         .ra-tooltip-message {
             &:after {
-                // right arrow
                 top: 50%;
                 left: 100%;
                 margin-left: 0;
@@ -110,7 +86,6 @@ export default styled(ReactARIAToolTipContent)`
 
         .ra-tooltip-message  {
             &:after {
-                // left arrow
                 top: 50%;
                 right: 100%;
                 margin-left: 0;

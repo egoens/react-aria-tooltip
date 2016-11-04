@@ -1,45 +1,10 @@
 import React from 'react'
-import ReactARIAToolTipContent from './react-aria-tooltip-content'
+import ToolTipContent from './tooltip-content'
 import styled from 'styled-components'
-
-const TooltipWrapper = styled.div`
-    position: relative;
-    display: inline-block;
-    margin: auto;
-    width: auto;
-
-    &.active {
-        .ra-tooltip {
-            display: block;
-        }
-    }
-`
 
 let tooltipIdCounter = 0;
 
-export default class ReactARIAToolTip extends React.Component {
-    static displayName = 'ReactARIAToolTip'
-
-    static propTypes = {
-        message: React.PropTypes.string.isRequired,
-        direction: React.PropTypes.string,
-        duration: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.number
-        ]),
-        children: React.PropTypes.node,
-        eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
-        id: React.PropTypes.string,
-        bgcolor: React.PropTypes.string
-    }
-
-    static defaultProps = {
-        direction: "top",
-        duration: 2000,
-        eventType: "click",
-        bgcolor: "#000"
-    }
-
+class ReactARIAToolTip extends React.Component {
     constructor(props, context) {
         super(props, context)
 
@@ -102,15 +67,15 @@ export default class ReactARIAToolTip extends React.Component {
     }
 
     render() {
-        const { message, bgcolor, direction } = this.props
+        const { message, bgcolor, direction, className } = this.props
         const { active } = this.state
-        let containerClass = "ra-tooltip-wrapper"
+        let containerClass = `ra-tooltip-wrapper ${className}`
         containerClass += (active) ? " active" : ""
         const tooltipID = this.state.id
 
         if (this.props.eventType == 'hover') {
             return (
-                <TooltipWrapper
+                <div
                      onMouseOver={this.handleMouseOver.bind(this)}
                      onMouseLeave={this.handleMouseLeave.bind(this)}
                      role="tooltip"
@@ -120,24 +85,59 @@ export default class ReactARIAToolTip extends React.Component {
                 >
                     <ReactARIAToolTipContent message={message} bgcolor={bgcolor} direction={direction} active={active} />
                      {this.addDescribedBy(tooltipID)}
-                </TooltipWrapper>
+                </div>
             )
         }
 
         return (
-            <TooltipWrapper
+            <div
                  onClick={this.handleClick.bind(this)}
                  role="tooltip"
                  className={containerClass}
             >
-                 <ReactARIAToolTipContent
+                 <ToolTipContent
                      message={message}
                      bgcolor={bgcolor}
                      direction={direction}
                      active={active} />
                  {this.addDescribedBy(tooltipID)}
-            </TooltipWrapper>
+            </div>
         )
 
     }
 }
+
+ReactARIAToolTip.displayName = 'ReactARIAToolTip'
+
+ReactARIAToolTip.defaultProps = {
+    direction: "top",
+    duration: 2000,
+    eventType: "click",
+    bgcolor: "#000"
+}
+
+ReactARIAToolTip.propTypes = {
+    message: React.PropTypes.string.isRequired,
+    direction: React.PropTypes.string,
+    duration: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+    ]),
+    children: React.PropTypes.node,
+    eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
+    id: React.PropTypes.string,
+    bgcolor: React.PropTypes.string
+}
+
+export default styled(ReactARIAToolTip)`
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    width: auto;
+
+    &.active {
+        .ra-tooltip {
+            display: block;
+        }
+    }
+`
