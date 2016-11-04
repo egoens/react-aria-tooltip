@@ -1,10 +1,8 @@
-import React from 'react'
+import React, { PropTypes }  from 'react'
 import TooltipMessage from './tooltip-message'
 import styled from 'styled-components'
 
-const arrowSize = 5
-
-const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
+const ToolTipContent = ({ className, direction, message, active, bgcolor, arrowSize }) => {
     const tooltipClasses = `${direction} ra-tooltip ${className}`
 
     return (
@@ -16,10 +14,11 @@ const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
 ToolTipContent.displayName = 'ToolTipContent'
 
 ToolTipContent.propTypes = {
-    message: React.PropTypes.string.isRequired,
-    direction: React.PropTypes.string.isRequired,
-    active: React.PropTypes.bool.isRequired,
-    bgcolor: React.PropTypes.string
+    message: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    bgcolor: PropTypes.string,
+    arrowSize: PropTypes.number.isRequired
 }
 
 export default styled(ToolTipContent)`
@@ -36,13 +35,13 @@ export default styled(ToolTipContent)`
     }
 
     &.top {
-        top: 0;
+        top: -${props => props.arrowSize/2}px;
         left: 50%;
         transform: translate(-50%,-120%);
 
         .ra-tooltip-message {
             &:after {
-                top: 100%;
+                top: calc(100% - 1px);
                 left: 50%;
                 border-top-color: ${props => props.bgcolor};
             }
@@ -50,13 +49,13 @@ export default styled(ToolTipContent)`
     }
 
     &.bottom {
-        bottom: 0;
+        bottom: -${props => props.arrowSize/2}px;
         left: 50%;
         transform: translate(-50%,120%);
 
         .ra-tooltip-message {
             &:after {
-                top: -${arrowSize * 2}px;
+                top: -${props => props.arrowSize * 2 - 1}px;
                 left: 50%;
                 border-bottom-color: ${props => props.bgcolor};
             }
@@ -65,7 +64,7 @@ export default styled(ToolTipContent)`
 
     &.left {
         top: 50%;
-        left: -${arrowSize}px;
+        left: -${props => props.arrowSize}px;
         transform: translate(-100%,-50%);
 
         .ra-tooltip-message {
@@ -73,7 +72,7 @@ export default styled(ToolTipContent)`
                 top: 50%;
                 left: 100%;
                 margin-left: 0;
-                margin-top: -${arrowSize}px;
+                margin-top: -${props => props.arrowSize}px;
                 border-left-color: ${props => props.bgcolor};
             }
         }
@@ -81,7 +80,7 @@ export default styled(ToolTipContent)`
 
     &.right {
         top: 50%;
-        right: -${arrowSize}px;
+        right: -${props => props.arrowSize}px;
         transform: translate(100%,-50%);
 
         .ra-tooltip-message  {
@@ -89,7 +88,7 @@ export default styled(ToolTipContent)`
                 top: 50%;
                 right: 100%;
                 margin-left: 0;
-                margin-top: -${arrowSize}px;
+                margin-top: -${props => props.arrowSize}px;
                 border-right-color: ${props => props.bgcolor};
             }
         }

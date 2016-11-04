@@ -12,7 +12,8 @@ const TooltipMessage = ({ className, message, arrowSize }) => {
 TooltipMessage.displayName = 'TooltipMessage'
 
 TooltipMessage.propTypes = {
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    arrowSize: PropTypes.number.isRequired
 }
 
 export default styled(TooltipMessage)`

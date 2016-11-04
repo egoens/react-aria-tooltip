@@ -125,9 +125,14 @@ var ReactARIAToolTip = function (_React$Component) {
             var className = _props.className;
             var active = this.state.active;
 
+            var tooltipID = this.state.id;
+
+            var arrowSize = this.props.arrowSize;
+
+            arrowSize = parseInt(arrowSize, 10);
+
             var containerClass = 'ra-tooltip-wrapper ' + className;
             containerClass += active ? " active" : "";
-            var tooltipID = this.state.id;
 
             if (this.props.eventType == 'hover') {
                 return _react2.default.createElement(
@@ -144,7 +149,8 @@ var ReactARIAToolTip = function (_React$Component) {
                         message: message,
                         bgcolor: bgcolor,
                         direction: direction,
-                        active: active }),
+                        active: active,
+                        arrowSize: arrowSize }),
                     this.addDescribedBy(tooltipID)
                 );
             }
@@ -160,7 +166,8 @@ var ReactARIAToolTip = function (_React$Component) {
                     message: message,
                     bgcolor: bgcolor,
                     direction: direction,
-                    active: active }),
+                    active: active,
+                    arrowSize: arrowSize }),
                 this.addDescribedBy(tooltipID)
             );
         }
@@ -175,13 +182,15 @@ ReactARIAToolTip.defaultProps = {
     direction: "top",
     duration: 2000,
     eventType: "click",
-    bgcolor: "#000"
+    bgcolor: "#000",
+    arrowSize: "10"
 };
 
 ReactARIAToolTip.propTypes = {
     message: _react2.default.PropTypes.string.isRequired,
     direction: _react2.default.PropTypes.string,
     duration: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+    arrowSize: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
     children: _react2.default.PropTypes.node,
     eventType: _react2.default.PropTypes.oneOf(['hover', 'click']),
     id: _react2.default.PropTypes.string,

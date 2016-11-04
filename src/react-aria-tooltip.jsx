@@ -69,9 +69,14 @@ class ReactARIAToolTip extends React.Component {
     render() {
         const { message, bgcolor, direction, className } = this.props
         const { active } = this.state
+        const tooltipID = this.state.id
+
+        let { arrowSize } = this.props
+        arrowSize = parseInt(arrowSize, 10)
+
         let containerClass = `ra-tooltip-wrapper ${className}`
         containerClass += (active) ? " active" : ""
-        const tooltipID = this.state.id
+
 
         if (this.props.eventType == 'hover') {
             return (
@@ -87,7 +92,8 @@ class ReactARIAToolTip extends React.Component {
                         message={message}
                         bgcolor={bgcolor}
                         direction={direction}
-                        active={active} />
+                        active={active}
+                        arrowSize={arrowSize} />
                      {this.addDescribedBy(tooltipID)}
                 </div>
             )
@@ -103,7 +109,8 @@ class ReactARIAToolTip extends React.Component {
                      message={message}
                      bgcolor={bgcolor}
                      direction={direction}
-                     active={active} />
+                     active={active}
+                     arrowSize={arrowSize} />
                  {this.addDescribedBy(tooltipID)}
             </div>
         )
@@ -117,13 +124,18 @@ ReactARIAToolTip.defaultProps = {
     direction: "top",
     duration: 2000,
     eventType: "click",
-    bgcolor: "#000"
+    bgcolor: "#000",
+    arrowSize: "10",
 }
 
 ReactARIAToolTip.propTypes = {
     message: React.PropTypes.string.isRequired,
     direction: React.PropTypes.string,
     duration: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+    ]),
+    arrowSize: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
     ]),

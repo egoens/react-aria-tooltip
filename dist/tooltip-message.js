@@ -37,7 +37,8 @@ var TooltipMessage = function TooltipMessage(_ref) {
 TooltipMessage.displayName = 'TooltipMessage';
 
 TooltipMessage.propTypes = {
-    message: _react.PropTypes.string.isRequired
+    message: _react.PropTypes.string.isRequired,
+    arrowSize: _react.PropTypes.number.isRequired
 };
 
 exports.default = (0, _styledComponents2.default)(TooltipMessage)(_templateObject, function (props) {
