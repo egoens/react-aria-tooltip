@@ -132,7 +132,6 @@ ReactARIAToolTip.propTypes = {
 export default styled(ReactARIAToolTip)`
     position: relative;
     display: inline-block;
-    margin: auto;
     width: auto;
 
     &.active {
