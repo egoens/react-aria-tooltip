@@ -6,7 +6,7 @@ Simple ReactJS component that adds the appropriate role, identification structur
 
 
 ## Usage
-```
+```js
 import ReactARIAToolTip from 'react-aria-tooltip'
 
 return (
@@ -26,13 +26,13 @@ return (
 **Note:** Please use a color contrast checker such as http://webaim.org/resources/contrastchecker/ to make sure the font color, defaulted to white/#fff, works with your bgcolor value)
 
 ## Examples
-```
+```html
 <ReactARIAToolTip message="Tooltip text" eventType="hover" direction="bottom" bgcolor="#333">
     <span>Some text</span>
 </ReactARIAToolTip>
 ```
 
-```
+```html
 <ReactARIAToolTip message="Something fancy" eventType="click" duration="500" bgcolor="red">
     <img src="../path/to/some/image" alt="" title="" />
 </ReactARIAToolTip>
@@ -41,7 +41,7 @@ return (
 ## Styling
 All styles are handled inline but each element contains a CSS class so you can override what's necessary to override locally. Below is the basic structure for reference:
 
-```
+```html
 <div class="ra-tooltip-wrapper">
     <div class="ra-tooltip">
         <div class="ra-tooltip-message">
