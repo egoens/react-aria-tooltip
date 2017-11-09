@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ToolTipContent from './tooltip-content'
 import styled from 'styled-components'
 
@@ -121,16 +122,16 @@ ReactARIAToolTip.defaultProps = {
 }
 
 ReactARIAToolTip.propTypes = {
-    message: React.PropTypes.string.isRequired,
-    direction: React.PropTypes.string,
-    duration: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+    message: PropTypes.string.isRequired,
+    direction: PropTypes.string,
+    duration: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
     ]),
-    children: React.PropTypes.node,
-    eventType: React.PropTypes.oneOf( ['hover', 'click'] ),
-    id: React.PropTypes.string,
-    bgcolor: React.PropTypes.string
+    children: PropTypes.node,
+    eventType: PropTypes.oneOf( ['hover', 'click'] ),
+    id: PropTypes.string,
+    bgcolor: PropTypes.string
 }
 
 export default styled(ReactARIAToolTip)`
