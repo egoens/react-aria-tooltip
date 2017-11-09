@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _tooltipContent = require('./tooltip-content');
 
 var _tooltipContent2 = _interopRequireDefault(_tooltipContent);
@@ -38,7 +42,7 @@ var ReactARIAToolTip = function (_React$Component) {
     function ReactARIAToolTip(props, context) {
         _classCallCheck(this, ReactARIAToolTip);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ReactARIAToolTip).call(this, props, context));
+        var _this = _possibleConstructorReturn(this, (ReactARIAToolTip.__proto__ || Object.getPrototypeOf(ReactARIAToolTip)).call(this, props, context));
 
         _this.state = {
             active: false,
@@ -118,11 +122,11 @@ var ReactARIAToolTip = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _props = this.props;
-            var message = _props.message;
-            var bgcolor = _props.bgcolor;
-            var direction = _props.direction;
-            var className = _props.className;
+            var _props = this.props,
+                message = _props.message,
+                bgcolor = _props.bgcolor,
+                direction = _props.direction,
+                className = _props.className;
             var active = this.state.active;
 
             var containerClass = 'ra-tooltip-wrapper ' + className;
@@ -179,13 +183,13 @@ ReactARIAToolTip.defaultProps = {
 };
 
 ReactARIAToolTip.propTypes = {
-    message: _react2.default.PropTypes.string.isRequired,
-    direction: _react2.default.PropTypes.string,
-    duration: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
-    children: _react2.default.PropTypes.node,
-    eventType: _react2.default.PropTypes.oneOf(['hover', 'click']),
-    id: _react2.default.PropTypes.string,
-    bgcolor: _react2.default.PropTypes.string
+    message: _propTypes2.default.string.isRequired,
+    direction: _propTypes2.default.string,
+    duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    children: _propTypes2.default.node,
+    eventType: _propTypes2.default.oneOf(['hover', 'click']),
+    id: _propTypes2.default.string,
+    bgcolor: _propTypes2.default.string
 };
 
 exports.default = (0, _styledComponents2.default)(ReactARIAToolTip)(_templateObject);

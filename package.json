@@ -29,10 +29,11 @@
   },
   "homepage": "https://github.com/egoens/react-aria-tooltip#readme",
   "dependencies": {
+    "prop-types": "15.6.0",
     "styled-components": "^1.0.10"
   },
   "peerDependencies": {
-    "react": "^0.14.8||^0.15"
+    "react": "^16.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

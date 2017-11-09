@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const TooltipMessage = ({ className, message, arrowSize }) => {

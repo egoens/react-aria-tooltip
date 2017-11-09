@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _tooltipMessage = require('./tooltip-message');
 
 var _tooltipMessage2 = _interopRequireDefault(_tooltipMessage);
@@ -25,11 +29,11 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var arrowSize = 5;
 
 var ToolTipContent = function ToolTipContent(_ref) {
-    var className = _ref.className;
-    var direction = _ref.direction;
-    var message = _ref.message;
-    var active = _ref.active;
-    var bgcolor = _ref.bgcolor;
+    var className = _ref.className,
+        direction = _ref.direction,
+        message = _ref.message,
+        active = _ref.active,
+        bgcolor = _ref.bgcolor;
 
     var tooltipClasses = direction + ' ra-tooltip ' + className;
 
@@ -42,10 +46,10 @@ var ToolTipContent = function ToolTipContent(_ref) {
 ToolTipContent.displayName = 'ToolTipContent';
 
 ToolTipContent.propTypes = {
-    message: _react2.default.PropTypes.string.isRequired,
-    direction: _react2.default.PropTypes.string.isRequired,
-    active: _react2.default.PropTypes.bool.isRequired,
-    bgcolor: _react2.default.PropTypes.string
+    message: _propTypes2.default.string.isRequired,
+    direction: _propTypes2.default.string.isRequired,
+    active: _propTypes2.default.bool.isRequired,
+    bgcolor: _propTypes2.default.string
 };
 
 exports.default = (0, _styledComponents2.default)(ToolTipContent)(_templateObject, function (props) {

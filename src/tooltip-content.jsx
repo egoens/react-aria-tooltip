@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TooltipMessage from './tooltip-message'
 import styled from 'styled-components'
 
@@ -16,10 +17,10 @@ const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
 ToolTipContent.displayName = 'ToolTipContent'
 
 ToolTipContent.propTypes = {
-    message: React.PropTypes.string.isRequired,
-    direction: React.PropTypes.string.isRequired,
-    active: React.PropTypes.bool.isRequired,
-    bgcolor: React.PropTypes.string
+    message: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    bgcolor: PropTypes.string
 }
 
 export default styled(ToolTipContent)`
