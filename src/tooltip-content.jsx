@@ -17,7 +17,10 @@ const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
 ToolTipContent.displayName = 'ToolTipContent'
 
 ToolTipContent.propTypes = {
-    message: PropTypes.string.isRequired,
+    message: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]).isRequired,
     direction: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     bgcolor: PropTypes.string

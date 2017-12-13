@@ -122,7 +122,10 @@ ReactARIAToolTip.defaultProps = {
 }
 
 ReactARIAToolTip.propTypes = {
-    message: PropTypes.string.isRequired,
+    message: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]).isRequired,
     direction: PropTypes.string,
     duration: PropTypes.oneOfType([
         PropTypes.string,
