@@ -15,7 +15,8 @@ TooltipMessage.displayName = 'TooltipMessage'
 TooltipMessage.propTypes = {
     message: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.object
+        PropTypes.object,
+        PropTypes.element
     ]).isRequired
 }
 

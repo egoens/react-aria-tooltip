@@ -19,7 +19,8 @@ ToolTipContent.displayName = 'ToolTipContent'
 ToolTipContent.propTypes = {
     message: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.object
+        PropTypes.object,
+        PropTypes.element
     ]).isRequired,
     direction: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
