@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n    position: relative;\n    display: inline-block;\n    width: auto;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n'], ['\n    position: relative;\n    display: inline-block;\n    width: auto;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n'], ['\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n']);
 
 var _react = require('react');
 
@@ -183,7 +183,7 @@ ReactARIAToolTip.defaultProps = {
 };
 
 ReactARIAToolTip.propTypes = {
-    message: _propTypes2.default.string.isRequired,
+    message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired,
     direction: _propTypes2.default.string,
     duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
     children: _propTypes2.default.node,

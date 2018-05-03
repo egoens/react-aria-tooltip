@@ -141,7 +141,7 @@ ReactARIAToolTip.propTypes = {
 export default styled(ReactARIAToolTip)`
     position: relative;
     display: inline-block;
-    width: auto;
+    width: inherit;
 
     &.active {
         .ra-tooltip {
