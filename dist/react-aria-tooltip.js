@@ -183,7 +183,7 @@ ReactARIAToolTip.defaultProps = {
 };
 
 ReactARIAToolTip.propTypes = {
-    message: _propTypes2.default.string.isRequired,
+    message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired,
     direction: _propTypes2.default.string,
     duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
     children: _propTypes2.default.node,

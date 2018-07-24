@@ -46,7 +46,7 @@ var ToolTipContent = function ToolTipContent(_ref) {
 ToolTipContent.displayName = 'ToolTipContent';
 
 ToolTipContent.propTypes = {
-    message: _propTypes2.default.string.isRequired,
+    message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired,
     direction: _propTypes2.default.string.isRequired,
     active: _propTypes2.default.bool.isRequired,
     bgcolor: _propTypes2.default.string

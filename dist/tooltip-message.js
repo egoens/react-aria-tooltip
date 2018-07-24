@@ -22,26 +22,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var getMessage = function getMessage(message) {
+    if (typeof message === 'string') return _react2.default.createElement(
+        'p',
+        null,
+        message
+    );
+    return message;
+};
+
 var TooltipMessage = function TooltipMessage(_ref) {
     var className = _ref.className,
         message = _ref.message,
         arrowSize = _ref.arrowSize;
 
-    return _react2.default.createElement(
+    if (typeof message === 'string') return _react2.default.createElement(
         'div',
         { className: className + ' ra-tooltip-message' },
-        _react2.default.createElement(
-            'p',
-            null,
-            message
-        )
+        getMessage(message)
     );
 };
 
 TooltipMessage.displayName = 'TooltipMessage';
 
 TooltipMessage.propTypes = {
-    message: _propTypes2.default.string.isRequired
+    message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired
 };
 
 exports.default = (0, _styledComponents2.default)(TooltipMessage)(_templateObject, function (props) {
