@@ -3680,6 +3680,10 @@ hoist-non-react-statics@1.x.x, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
+hoist-non-react-statics@^2.5.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
+
 home-or-tmp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-1.0.0.tgz#4b9f1e40800c3e50c6c27f781676afcce71f3985"
@@ -5892,6 +5896,10 @@ react-inspector@^2.2.2:
     babel-runtime "^6.26.0"
     is-dom "^1.0.9"
 
+react-is@^16.3.1:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.2.tgz#84891b56c2b6d9efdee577cc83501dfc5ecead88"
+
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -6814,20 +6822,25 @@ style-loader@^0.20.3:
     loader-utils "^1.1.0"
     schema-utils "^0.4.5"
 
-styled-components@^2.4.0:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.4.1.tgz#663bd0485d4b6ab46f946210dc03d2398d1ade74"
+styled-components@^3:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.4.2.tgz#8f518419932327e47fe9144824e3184b3e2da95d"
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
-    fbjs "^0.8.9"
-    hoist-non-react-statics "^1.2.0"
-    is-plain-object "^2.0.1"
+    fbjs "^0.8.16"
+    hoist-non-react-statics "^2.5.0"
     prop-types "^15.5.4"
-    stylis "^3.4.0"
+    react-is "^16.3.1"
+    stylis "^3.5.0"
+    stylis-rule-sheet "^0.0.10"
     supports-color "^3.2.3"
 
-stylis@^3.4.0:
+stylis-rule-sheet@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/stylis-rule-sheet/-/stylis-rule-sheet-0.0.10.tgz#44e64a2b076643f4b52e5ff71efc04d8c3c4a430"
+
+stylis@^3.5.0:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.3.tgz#99fdc46afba6af4deff570825994181a5e6ce546"
 
