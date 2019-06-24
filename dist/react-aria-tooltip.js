@@ -1,12 +1,12 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(["\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n"], ["\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n"]);
+var _templateObject = _taggedTemplateLiteral(["\n  position: relative;\n  display: inline-block;\n  width: inherit;\n\n  &.active {\n    .ra-tooltip {\n      display: block;\n    }\n  }\n"], ["\n  position: relative;\n  display: inline-block;\n  width: inherit;\n\n  &.active {\n    .ra-tooltip {\n      display: block;\n    }\n  }\n"]);
 
 var _react = require("react");
 
@@ -37,157 +37,181 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var tooltipIdCounter = 0;
 
 var ReactARIAToolTip = function (_React$Component) {
-    _inherits(ReactARIAToolTip, _React$Component);
+  _inherits(ReactARIAToolTip, _React$Component);
 
-    function ReactARIAToolTip(props, context) {
-        _classCallCheck(this, ReactARIAToolTip);
+  function ReactARIAToolTip(props, context) {
+    _classCallCheck(this, ReactARIAToolTip);
 
-        var _this = _possibleConstructorReturn(this, (ReactARIAToolTip.__proto__ || Object.getPrototypeOf(ReactARIAToolTip)).call(this, props, context));
+    var _this = _possibleConstructorReturn(this, (ReactARIAToolTip.__proto__ || Object.getPrototypeOf(ReactARIAToolTip)).call(this, props, context));
 
-        _this.state = {
-            active: false,
-            direction: props.direction,
-            duration: props.duration,
-            id: props.id
-        };
-        return _this;
+    _this.handleWindowClick = function (e) {
+      if (_this.state.active) {
+        if (_this.node.contains(e.target)) {
+          return;
+        }
+        _this.setState({ active: false });
+      }
+    };
+
+    _this.state = {
+      active: false,
+      direction: props.direction,
+      duration: props.duration,
+      id: props.id
+    };
+    return _this;
+  }
+
+  _createClass(ReactARIAToolTip, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var id = this.props.id || this.uniqueID("ra-tooltip-");
+      this.setState({ id: id });
+      if (!this.state.duration) {
+        document.addEventListener("mousedown", this.handleWindowClick, false);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.timer && clearTimeout(this.timer);
+      this.timer = false;
+      document.removeEventListener("mousedown", this.handleWindowClick, false);
+    }
+  }, {
+    key: "startTimer",
+    value: function startTimer() {
+      var _this2 = this;
+
+      var duration = this.props.duration;
+
+      this.timer = setTimeout(function () {
+        return _this2.setState({ active: false });
+      }, duration);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick() {
+      this.setState({ active: true });
+      if (this.state.duration) {
+        clearTimeout(this.timer);
+        this.startTimer();
+      }
+    }
+  }, {
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({ active: true });
+    }
+  }, {
+    key: "handleMouseLeave",
+    value: function handleMouseLeave() {
+      this.setState({ active: false });
+    }
+  }, {
+    key: "handleFocus",
+    value: function handleFocus() {
+      this.handleClick();
     }
 
-    _createClass(ReactARIAToolTip, [{
-        key: "componentWillMount",
-        value: function componentWillMount() {
-            var id = this.props.id || this.uniqueID("ra-tooltip-");
-            this.setState({ id: id });
-        }
-    }, {
-        key: "componentWillUnmount",
-        value: function componentWillUnmount() {
-            this.timer && clearTimeout(this.timer);
-            this.timer = false;
-        }
-    }, {
-        key: "startTimer",
-        value: function startTimer() {
-            var _this2 = this;
+    // create unique id so multiple tooltips can be used in the same view
 
-            var duration = this.props.duration;
+  }, {
+    key: "uniqueID",
+    value: function uniqueID(prefix) {
+      var id = ++tooltipIdCounter + "";
+      return prefix ? prefix + id : id;
+    }
 
-            this.timer = setTimeout(function () {
-                return _this2.setState({ active: false });
-            }, duration);
-        }
-    }, {
-        key: "handleClick",
-        value: function handleClick() {
-            clearTimeout(this.timer);
-            this.setState({ active: true });
-            this.startTimer();
-        }
-    }, {
-        key: "handleMouseOver",
-        value: function handleMouseOver() {
-            this.setState({ active: true });
-        }
-    }, {
-        key: "handleMouseLeave",
-        value: function handleMouseLeave() {
-            this.setState({ active: false });
-        }
-    }, {
-        key: "handleFocus",
-        value: function handleFocus() {
-            this.handleClick();
-        }
+    // adds tooltip 'aria-describedby' attribute to child element
 
-        // create unique id so multiple tooltips can be used in the same view
+  }, {
+    key: "addDescribedBy",
+    value: function addDescribedBy(tooltipID) {
+      return _react2.default.Children.map(this.props.children, function (e) {
+        return _react2.default.cloneElement(e, {
+          "aria-describedby": tooltipID
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-    }, {
-        key: "uniqueID",
-        value: function uniqueID(prefix) {
-            var id = ++tooltipIdCounter + "";
-            return prefix ? prefix + id : id;
-        }
+      var _props = this.props,
+          message = _props.message,
+          bgcolor = _props.bgcolor,
+          direction = _props.direction,
+          className = _props.className;
+      var active = this.state.active;
 
-        // adds tooltip 'aria-describedby' attribute to child element
+      var containerClass = "ra-tooltip-wrapper " + className;
+      containerClass += active ? " active" : "";
+      var tooltipID = this.state.id;
 
-    }, {
-        key: "addDescribedBy",
-        value: function addDescribedBy(tooltipID) {
-            return _react2.default.Children.map(this.props.children, function (e) {
-                return _react2.default.cloneElement(e, {
-                    "aria-describedby": tooltipID
-                });
-            });
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _props = this.props,
-                message = _props.message,
-                bgcolor = _props.bgcolor,
-                direction = _props.direction,
-                className = _props.className;
-            var active = this.state.active;
+      if (this.props.eventType == "hover") {
+        return _react2.default.createElement(
+          "div",
+          {
+            onMouseOver: this.handleMouseOver.bind(this),
+            onMouseLeave: this.handleMouseLeave.bind(this),
+            role: "tooltip",
+            id: tooltipID,
+            onFocus: this.handleFocus.bind(this),
+            className: containerClass
+          },
+          _react2.default.createElement(_tooltipContent2.default, {
+            message: message,
+            bgcolor: bgcolor,
+            direction: direction,
+            active: active
+          }),
+          this.addDescribedBy(tooltipID)
+        );
+      }
 
-            var containerClass = "ra-tooltip-wrapper " + className;
-            containerClass += active ? " active" : "";
-            var tooltipID = this.state.id;
+      return _react2.default.createElement(
+        "div",
+        {
+          ref: function ref(node) {
+            return _this3.node = node;
+          },
+          onClick: this.handleClick.bind(this),
+          role: "tooltip",
+          className: containerClass
+        },
+        _react2.default.createElement(_tooltipContent2.default, {
+          message: message,
+          bgcolor: bgcolor,
+          direction: direction,
+          active: active
+        }),
+        this.addDescribedBy(tooltipID)
+      );
+    }
+  }]);
 
-            if (this.props.eventType == "hover") {
-                return _react2.default.createElement(
-                    "div",
-                    {
-                        onMouseOver: this.handleMouseOver.bind(this),
-                        onMouseLeave: this.handleMouseLeave.bind(this),
-                        role: "tooltip",
-                        id: tooltipID,
-                        onFocus: this.handleFocus.bind(this),
-                        className: containerClass
-                    },
-                    _react2.default.createElement(_tooltipContent2.default, {
-                        message: message,
-                        bgcolor: bgcolor,
-                        direction: direction,
-                        active: active
-                    }),
-                    this.addDescribedBy(tooltipID)
-                );
-            }
-
-            return _react2.default.createElement(
-                "div",
-                { onClick: this.handleClick.bind(this), role: "tooltip", className: containerClass },
-                _react2.default.createElement(_tooltipContent2.default, {
-                    message: message,
-                    bgcolor: bgcolor,
-                    direction: direction,
-                    active: active
-                }),
-                this.addDescribedBy(tooltipID)
-            );
-        }
-    }]);
-
-    return ReactARIAToolTip;
+  return ReactARIAToolTip;
 }(_react2.default.Component);
 
 ReactARIAToolTip.displayName = "ReactARIAToolTip";
 
 ReactARIAToolTip.defaultProps = {
-    direction: "top",
-    duration: 2000,
-    eventType: "click",
-    bgcolor: "#000"
+  direction: "top",
+  duration: 2000,
+  eventType: "click",
+  bgcolor: "#000"
 };
 
 ReactARIAToolTip.propTypes = {
-    message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired,
-    direction: _propTypes2.default.string,
-    duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
-    children: _propTypes2.default.node,
-    eventType: _propTypes2.default.oneOf(["hover", "click"]),
-    id: _propTypes2.default.string,
-    bgcolor: _propTypes2.default.string
+  message: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object, _propTypes2.default.element]).isRequired,
+  direction: _propTypes2.default.string,
+  duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.bool]),
+  children: _propTypes2.default.node,
+  eventType: _propTypes2.default.oneOf(["hover", "click", "outside"]),
+  id: _propTypes2.default.string,
+  bgcolor: _propTypes2.default.string
 };
 
 exports.default = (0, _styledComponents2.default)(ReactARIAToolTip)(_templateObject);
