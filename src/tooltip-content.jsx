@@ -1,102 +1,101 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import TooltipMessage from './tooltip-message'
-import styled from 'styled-components'
+import React from "react";
+import PropTypes from "prop-types";
+import TooltipMessage from "./tooltip-message";
+import styled from "styled-components";
 
-const arrowSize = 5
+const arrowSize = 5;
 
 const ToolTipContent = ({ className, direction, message, active, bgcolor }) => {
-    const tooltipClasses = `${direction} ra-tooltip ${className}`
+  const tooltipClasses = `${direction} ra-tooltip ${className}`;
 
-    return (
-        <div className={tooltipClasses} aria-hidden={active ? false : true}>
-            <TooltipMessage message={message} arrowSize={arrowSize} />
-        </div>
-    )
-}
-ToolTipContent.displayName = 'ToolTipContent'
+  return (
+    <div className={tooltipClasses} aria-hidden={active ? false : true}>
+      <TooltipMessage message={message} arrowSize={arrowSize} />
+    </div>
+  );
+};
+ToolTipContent.displayName = "ToolTipContent";
 
 ToolTipContent.propTypes = {
-    message: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object,
-        PropTypes.element
-    ]).isRequired,
-    direction: PropTypes.string.isRequired,
-    active: PropTypes.bool.isRequired,
-    bgcolor: PropTypes.string
-}
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.element
+  ]).isRequired,
+  direction: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  bgcolor: PropTypes.string
+};
 
 export default styled(ToolTipContent)`
-    position: absolute;
-    background: ${props => props.bgcolor};
-    transition: all .25s;
-    display: none;
+  position: absolute;
+  background: ${props => props.bgcolor};
+  transition: all 0.25s;
+  display: none;
+  color: white;
 
-    p {
-        padding: .5rem 1rem;
-        margin: 0;
-        white-space: nowrap;
-        color: white;
-    }
+  * {
+    margin: 0;
+    white-space: nowrap;
+  }
 
-    &.top {
-        top: 0;
+  &.top {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -120%);
+
+    .ra-tooltip-message {
+      &:after {
+        top: 100%;
         left: 50%;
-        transform: translate(-50%,-120%);
-
-        .ra-tooltip-message {
-            &:after {
-                top: 100%;
-                left: 50%;
-                border-top-color: ${props => props.bgcolor};
-            }
-        }
+        border-top-color: ${props => props.bgcolor};
+      }
     }
+  }
 
-    &.bottom {
-        bottom: 0;
+  &.bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 120%);
+
+    .ra-tooltip-message {
+      &:after {
+        top: -${arrowSize * 2}px;
         left: 50%;
-        transform: translate(-50%,120%);
-
-        .ra-tooltip-message {
-            &:after {
-                top: -${arrowSize * 2}px;
-                left: 50%;
-                border-bottom-color: ${props => props.bgcolor};
-            }
-        }
+        border-bottom-color: ${props => props.bgcolor};
+      }
     }
+  }
 
-    &.left {
+  &.left {
+    top: 50%;
+    left: -${arrowSize}px;
+    transform: translate(-100%, -50%);
+
+    .ra-tooltip-message {
+      &:after {
         top: 50%;
-        left: -${arrowSize}px;
-        transform: translate(-100%,-50%);
-
-        .ra-tooltip-message {
-            &:after {
-                top: 50%;
-                left: 100%;
-                margin-left: 0;
-                margin-top: -${arrowSize}px;
-                border-left-color: ${props => props.bgcolor};
-            }
-        }
+        left: 100%;
+        margin-left: 0;
+        margin-top: -${arrowSize}px;
+        border-left-color: ${props => props.bgcolor};
+      }
     }
+  }
 
-    &.right {
+  &.right {
+    top: 50%;
+    right: -${arrowSize}px;
+    transform: translate(100%, -50%);
+
+    .ra-tooltip-message {
+      &:after {
         top: 50%;
-        right: -${arrowSize}px;
-        transform: translate(100%,-50%);
-
-        .ra-tooltip-message  {
-            &:after {
-                top: 50%;
-                right: 100%;
-                margin-left: 0;
-                margin-top: -${arrowSize}px;
-                border-right-color: ${props => props.bgcolor};
-            }
-        }
+        right: 100%;
+        margin-left: 0;
+        margin-top: -${arrowSize}px;
+        border-right-color: ${props => props.bgcolor};
+      }
     }
-`
+  }
+`;
