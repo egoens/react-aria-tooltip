@@ -36,7 +36,7 @@ var TooltipMessage = function TooltipMessage(_ref) {
         message = _ref.message,
         arrowSize = _ref.arrowSize;
 
-    if (typeof message === 'string') return _react2.default.createElement(
+    return _react2.default.createElement(
         'div',
         { className: className + ' ra-tooltip-message' },
         getMessage(message)

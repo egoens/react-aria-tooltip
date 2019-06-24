@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -6,21 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\n    position: relative;\n    display: inline-block;\n    width: auto;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n'], ['\n    position: relative;\n    display: inline-block;\n    width: auto;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(["\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n"], ["\n    position: relative;\n    display: inline-block;\n    width: inherit;\n\n    &.active {\n        .ra-tooltip {\n            display: block;\n        }\n    }\n"]);
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tooltipContent = require('./tooltip-content');
+var _tooltipContent = require("./tooltip-content");
 
 var _tooltipContent2 = _interopRequireDefault(_tooltipContent);
 
-var _styledComponents = require('styled-components');
+var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
@@ -54,19 +54,19 @@ var ReactARIAToolTip = function (_React$Component) {
     }
 
     _createClass(ReactARIAToolTip, [{
-        key: 'componentWillMount',
+        key: "componentWillMount",
         value: function componentWillMount() {
             var id = this.props.id || this.uniqueID("ra-tooltip-");
             this.setState({ id: id });
         }
     }, {
-        key: 'componentWillUnmount',
+        key: "componentWillUnmount",
         value: function componentWillUnmount() {
             this.timer && clearTimeout(this.timer);
             this.timer = false;
         }
     }, {
-        key: 'startTimer',
+        key: "startTimer",
         value: function startTimer() {
             var _this2 = this;
 
@@ -77,24 +77,24 @@ var ReactARIAToolTip = function (_React$Component) {
             }, duration);
         }
     }, {
-        key: 'handleClick',
+        key: "handleClick",
         value: function handleClick() {
             clearTimeout(this.timer);
             this.setState({ active: true });
             this.startTimer();
         }
     }, {
-        key: 'handleMouseOver',
+        key: "handleMouseOver",
         value: function handleMouseOver() {
             this.setState({ active: true });
         }
     }, {
-        key: 'handleMouseLeave',
+        key: "handleMouseLeave",
         value: function handleMouseLeave() {
             this.setState({ active: false });
         }
     }, {
-        key: 'handleFocus',
+        key: "handleFocus",
         value: function handleFocus() {
             this.handleClick();
         }
@@ -102,16 +102,16 @@ var ReactARIAToolTip = function (_React$Component) {
         // create unique id so multiple tooltips can be used in the same view
 
     }, {
-        key: 'uniqueID',
+        key: "uniqueID",
         value: function uniqueID(prefix) {
-            var id = ++tooltipIdCounter + '';
+            var id = ++tooltipIdCounter + "";
             return prefix ? prefix + id : id;
         }
 
         // adds tooltip 'aria-describedby' attribute to child element
 
     }, {
-        key: 'addDescribedBy',
+        key: "addDescribedBy",
         value: function addDescribedBy(tooltipID) {
             return _react2.default.Children.map(this.props.children, function (e) {
                 return _react2.default.cloneElement(e, {
@@ -120,7 +120,7 @@ var ReactARIAToolTip = function (_React$Component) {
             });
         }
     }, {
-        key: 'render',
+        key: "render",
         value: function render() {
             var _props = this.props,
                 message = _props.message,
@@ -129,17 +129,17 @@ var ReactARIAToolTip = function (_React$Component) {
                 className = _props.className;
             var active = this.state.active;
 
-            var containerClass = 'ra-tooltip-wrapper ' + className;
+            var containerClass = "ra-tooltip-wrapper " + className;
             containerClass += active ? " active" : "";
             var tooltipID = this.state.id;
 
-            if (this.props.eventType == 'hover') {
+            if (this.props.eventType == "hover") {
                 return _react2.default.createElement(
-                    'div',
+                    "div",
                     {
                         onMouseOver: this.handleMouseOver.bind(this),
                         onMouseLeave: this.handleMouseLeave.bind(this),
-                        role: 'tooltip',
+                        role: "tooltip",
                         id: tooltipID,
                         onFocus: this.handleFocus.bind(this),
                         className: containerClass
@@ -148,23 +148,21 @@ var ReactARIAToolTip = function (_React$Component) {
                         message: message,
                         bgcolor: bgcolor,
                         direction: direction,
-                        active: active }),
+                        active: active
+                    }),
                     this.addDescribedBy(tooltipID)
                 );
             }
 
             return _react2.default.createElement(
-                'div',
-                {
-                    onClick: this.handleClick.bind(this),
-                    role: 'tooltip',
-                    className: containerClass
-                },
+                "div",
+                { onClick: this.handleClick.bind(this), role: "tooltip", className: containerClass },
                 _react2.default.createElement(_tooltipContent2.default, {
                     message: message,
                     bgcolor: bgcolor,
                     direction: direction,
-                    active: active }),
+                    active: active
+                }),
                 this.addDescribedBy(tooltipID)
             );
         }
@@ -173,7 +171,7 @@ var ReactARIAToolTip = function (_React$Component) {
     return ReactARIAToolTip;
 }(_react2.default.Component);
 
-ReactARIAToolTip.displayName = 'ReactARIAToolTip';
+ReactARIAToolTip.displayName = "ReactARIAToolTip";
 
 ReactARIAToolTip.defaultProps = {
     direction: "top",
@@ -187,7 +185,7 @@ ReactARIAToolTip.propTypes = {
     direction: _propTypes2.default.string,
     duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
     children: _propTypes2.default.node,
-    eventType: _propTypes2.default.oneOf(['hover', 'click']),
+    eventType: _propTypes2.default.oneOf(["hover", "click"]),
     id: _propTypes2.default.string,
     bgcolor: _propTypes2.default.string
 };
