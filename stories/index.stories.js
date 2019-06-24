@@ -35,3 +35,18 @@ stories.map(story => {
     ));
   });
 });
+
+storiesOf("outside", module)
+  .addDecorator(centered)
+  .add("click", () => {
+    return (
+      <ReactARIAToolTip
+        message="Your custom message"
+        direction="bottom"
+        eventType="click"
+        duration={0}
+      >
+        <div>click on me</div>
+      </ReactARIAToolTip>
+    );
+  });
