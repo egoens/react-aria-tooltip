@@ -3,15 +3,14 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const getMessage = (message) => {
-  if (typeof message === 'string') return <p>{message}</p>
-  return message
+    if (typeof message === 'string') return <p>{message}</p>
+    return message
 }
 
 const TooltipMessage = ({ className, message, arrowSize }) => {
-    if (typeof message === 'string')
     return (
         <div className={`${className} ra-tooltip-message`}>
-          {getMessage(message)}
+            {getMessage(message)}
         </div>
     )
 }
