@@ -63,8 +63,8 @@ var ReactARIAToolTip = function (_React$Component) {
   }
 
   _createClass(ReactARIAToolTip, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var id = this.props.id || this.uniqueID("ra-tooltip-");
       this.setState({ id: id });
       if (!this.state.duration) {
