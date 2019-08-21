@@ -17,7 +17,7 @@ class ReactARIAToolTip extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const id = this.props.id || this.uniqueID("ra-tooltip-");
     this.setState({ id: id });
     if (!this.state.duration) {
