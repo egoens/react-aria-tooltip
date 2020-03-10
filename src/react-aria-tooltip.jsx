@@ -38,7 +38,7 @@ class ReactARIAToolTip extends React.Component {
 
   handleWindowClick = e => {
     if (this.state.active) {
-      if (this.node.contains(e.target)) {
+      if (!this.props.allowClickOnSelf && this.node.contains(e.target)) {
         return;
       }
       this.setState({ active: false });
@@ -133,6 +133,7 @@ ReactARIAToolTip.defaultProps = {
   direction: "top",
   duration: 2000,
   eventType: "click",
+  allowClickOnSelf: false,
   bgcolor: "#000"
 };
 
@@ -150,6 +151,7 @@ ReactARIAToolTip.propTypes = {
   ]),
   children: PropTypes.node,
   eventType: PropTypes.oneOf(["hover", "click", "outside"]),
+  allowClickOnSelf: PropTypes.bool,
   id: PropTypes.string,
   bgcolor: PropTypes.string
 };

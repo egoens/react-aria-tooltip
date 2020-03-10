@@ -46,7 +46,7 @@ var ReactARIAToolTip = function (_React$Component) {
 
     _this.handleWindowClick = function (e) {
       if (_this.state.active) {
-        if (_this.node.contains(e.target)) {
+        if (!_this.props.allowClickOnSelf && _this.node.contains(e.target)) {
           return;
         }
         _this.setState({ active: false });
@@ -201,6 +201,7 @@ ReactARIAToolTip.defaultProps = {
   direction: "top",
   duration: 2000,
   eventType: "click",
+  allowClickOnSelf: false,
   bgcolor: "#000"
 };
 
@@ -210,6 +211,7 @@ ReactARIAToolTip.propTypes = {
   duration: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number, _propTypes2.default.bool]),
   children: _propTypes2.default.node,
   eventType: _propTypes2.default.oneOf(["hover", "click", "outside"]),
+  allowClickOnSelf: _propTypes2.default.bool,
   id: _propTypes2.default.string,
   bgcolor: _propTypes2.default.string
 };
