@@ -46,7 +46,7 @@ var ReactARIAToolTip = function (_React$Component) {
 
     _this.handleWindowClick = function (e) {
       if (_this.state.active) {
-        if (!_this.props.allowClickOnSelf && _this.node.contains(e.target)) {
+        if (_this.node.contains(e.target)) {
           return;
         }
         _this.setState({ active: false });
@@ -92,10 +92,14 @@ var ReactARIAToolTip = function (_React$Component) {
   }, {
     key: "handleClick",
     value: function handleClick() {
-      this.setState({ active: true });
-      if (this.state.duration) {
-        clearTimeout(this.timer);
-        this.startTimer();
+      if (this.props.allowClickOnSelf) {
+        this.setState({ active: !this.state.active });
+      } else {
+        this.setState({ active: true });
+        if (this.state.duration) {
+          clearTimeout(this.timer);
+          this.startTimer();
+        }
       }
     }
   }, {

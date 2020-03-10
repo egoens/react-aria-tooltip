@@ -38,7 +38,7 @@ class ReactARIAToolTip extends React.Component {
 
   handleWindowClick = e => {
     if (this.state.active) {
-      if (!this.props.allowClickOnSelf && this.node.contains(e.target)) {
+      if (this.node.contains(e.target)) {
         return;
       }
       this.setState({ active: false });
@@ -46,10 +46,14 @@ class ReactARIAToolTip extends React.Component {
   };
 
   handleClick() {
-    this.setState({ active: true });
-    if (this.state.duration) {
-      clearTimeout(this.timer);
-      this.startTimer();
+    if (this.props.allowClickOnSelf) {
+      this.setState({ active: !this.state.active });
+    } else {
+      this.setState({ active: true });
+      if (this.state.duration) {
+        clearTimeout(this.timer);
+        this.startTimer();
+      }
     }
   }
 
