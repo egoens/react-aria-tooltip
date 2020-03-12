@@ -22,6 +22,7 @@ return (
 
 1.  `message` string that will display in the tooltip (required)
 1.  `eventType` this can either be 'click' or 'hover' (default 'click')
+1.  `allowClickOnSelf` this is only applicable to the click `eventType`. This value defines whether a click on the target element will also toggle the tooltip (default 'false')
 1.  `direction` the placement of the tooltip. Can be one of four options 'top', 'bottom', 'right', 'left' (default 'top')
 1.  `duration` this is only applicable to the click `eventType`. This value defines the amount of time the tooltip is present after the user clicks the target element (default 2000). If the value is `0` or `false` then the tooltip will persist until the user clicks outside of the bounds of any of the tooltip content and/or button.
 1.  `bgcolor` controls the background color of the tooltip. (default '#000')

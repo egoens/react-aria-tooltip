@@ -49,4 +49,17 @@ storiesOf("outside", module)
         <div>click on me</div>
       </ReactARIAToolTip>
     );
+  })
+  .add("allowClickOnSelf", () => {
+    return (
+      <ReactARIAToolTip
+        message="Your custom message"
+        direction="bottom"
+        eventType="click"
+        allowClickOnSelf
+        duration={0}
+      >
+        <div>click on me</div>
+      </ReactARIAToolTip>
+    );
   });

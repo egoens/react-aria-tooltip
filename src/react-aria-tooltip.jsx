@@ -46,10 +46,14 @@ class ReactARIAToolTip extends React.Component {
   };
 
   handleClick() {
-    this.setState({ active: true });
-    if (this.state.duration) {
-      clearTimeout(this.timer);
-      this.startTimer();
+    if (this.props.allowClickOnSelf) {
+      this.setState({ active: !this.state.active });
+    } else {
+      this.setState({ active: true });
+      if (this.state.duration) {
+        clearTimeout(this.timer);
+        this.startTimer();
+      }
     }
   }
 
@@ -133,6 +137,7 @@ ReactARIAToolTip.defaultProps = {
   direction: "top",
   duration: 2000,
   eventType: "click",
+  allowClickOnSelf: false,
   bgcolor: "#000"
 };
 
@@ -150,6 +155,7 @@ ReactARIAToolTip.propTypes = {
   ]),
   children: PropTypes.node,
   eventType: PropTypes.oneOf(["hover", "click", "outside"]),
+  allowClickOnSelf: PropTypes.bool,
   id: PropTypes.string,
   bgcolor: PropTypes.string
 };
