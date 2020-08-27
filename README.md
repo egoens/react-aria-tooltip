@@ -10,7 +10,7 @@ To download or install react-aria-tooltip use your package manager of choice by 
 ### Via yarn
 `yarn install react-aria-tooltip`
 
-### NPM
+### Via npm
 `npm install react-aria-tooltip`
 
 ## Usage
