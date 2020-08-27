@@ -2,8 +2,15 @@
 
 Simple ReactJS component that adds the appropriate role, identification structure, and aria-hidden attribute for a tooltip.
 
-## Installation
+This component leverages a style library called [Styled Components](https://styled-components.com) to create and manage the visual approach.
 
+## Installation
+To download or install react-aria-tooltip use your package manager of choice by running one of the following commands.
+
+### Via yarn
+`yarn install react-aria-tooltip`
+
+### Via npm
 `npm install react-aria-tooltip`
 
 ## Usage
